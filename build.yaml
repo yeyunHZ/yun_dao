@@ -1,0 +1,14 @@
+targets:
+  $default: #定义目标库，关键字$default默认为当前库
+    builders: #构建的两个库
+      yun_dao|entity_generator:
+        enabled: true #可选，是否将构建器应用于此目标
+
+builders:
+  entity_generator:
+    import: "package:yun_dao/builder.dart" #build文件
+    builder_factories: ["yunEntityGenerator"]
+    build_extensions: {".dart": [".entity_generator.g.part"]}
+    auto_apply: root_package
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]
