@@ -9,7 +9,7 @@
 
 
 
-2、使用####@Entity注解你的实体类 例:
-·''dart
+2、使用 ####@Entity 注解你的实体类 例:
+`''dart
 @Entity()
 class StudentEntity{}
