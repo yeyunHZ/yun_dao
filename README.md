@@ -6,13 +6,18 @@
 使用
 ===
 1、创建你的实体类并以*.entity.dart作为文件名,编译后生成的数据库操作文件将以*.entity.table.dart命名 例:
-
+```Dart
+你的实体类文件:               student.entity.dart
+编译后生成的数据库操作类文件:   student.entity.table.dart
+```
 
 
 2、使用 **@Entity** 注解你的 **实体类** ,并且 **nameInDb**属性来定义其在数据库中的表名 **propertyList** 的类型为List,通过他来定义表中的字段 以例:
 ```Dart
 @Entity(nameInDb:'student',propertyList:[Property(name:'name',type:PropertyType.STRING)])
-class StudentEntity{}
+class StudentEntity{
+   String name;
+}
 ```
 
 3、实体类必须拥有主键,并在 **@Property** 注解中通过 **isPrimary=true** 来声明这个属性为主键
@@ -22,5 +27,21 @@ class StudentEntity{}
               Property(name:'name',type:PropertyType.STRING),
               Property(name:'id',type:PropertyType.INT,isPrimary:true),
               ])
-class StudentEntity{}
+class StudentEntity{
+      String name;
+      int id;
+}
+```
+
+4、编译后生成的数据库操作文件中包含当前表的创建、增删改查等方法,在项目中使用需要先进行数据库的初始化
+```Dart
+///导入数据库管理类
+import 'package:yun_dao/db_manager.dart';
+
+///传入数据库版本、数据库路径以及数据库名称来初始化数据库,DBManager为单例,每次创建拿到的都是同一个
+DBManager dBManager = DBManager();
+dBManager.initByPath(1,“dbPath”,"dbName");
+///你也可以使用默认路径来初始化数据库 默认的路径为 getDatabasesPath()
+dBManager.init(1,"dbName");
+
 ```
