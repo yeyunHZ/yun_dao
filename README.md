@@ -5,4 +5,12 @@
 
 使用
 ===
-1、创建你的实体类并以*.entity.dart作为文件名
+1、创建你的实体类并以*.entity.dart作为文件名,编译后生成的数据库操作文件将以*.entity.table.dart命名 例:
+
+
+
+2、使用@Entity注解你的实体类 例:
+      _
+·“”dart
+@Entity()
+class StudentEntity{}
