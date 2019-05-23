@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 ///数据库表的注解
 class Entity {
   ///表名注解

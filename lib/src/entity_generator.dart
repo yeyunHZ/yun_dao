@@ -9,9 +9,7 @@ import 'package:yun_dao/src/entity.dart';
 
 import 'template.dart';
 
-/**
- * 数据库管理类
- */
+///代码生成
 class EntityGenerator extends GeneratorForAnnotation<Entity> {
   @override
   generateForAnnotatedElement(

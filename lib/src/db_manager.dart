@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 ///数据库管理类
 class DBManager {

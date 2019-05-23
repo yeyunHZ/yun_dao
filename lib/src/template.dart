@@ -16,21 +16,9 @@ import 'package:fluttertoast/fluttertoast.dart';
            List<Property> propertyList = List();
          for(Map map in propertyMapList){
             propertyList.add(Property.fromJson(map));
-      }
+            }
       dbManager.db.execute("CREATE TABLE {{{tableName}}}({{{createSql}}})");
-      Fluttertoast.showToast(
-        msg: "数据库创建成功",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1,
-      );
-      }else{
-          Fluttertoast.showToast(
-        msg: "数据库已经创建",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1,
-      );
+       
       }
       return true;
   
@@ -45,12 +33,6 @@ import 'package:fluttertoast/fluttertoast.dart';
            for(Map map in maps){
               entityList.add(_formMap(map));
            }
-           Fluttertoast.showToast(
-      msg: "数据库查询成功:" + entityList.length.toString(),
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-    );
            return entityList;
   }
   
@@ -59,12 +41,6 @@ import 'package:fluttertoast/fluttertoast.dart';
   static Future<bool> insert({{{entityName}}} entity) async{
        DBManager dbManager = DBManager();
        await dbManager.db.insert("{{{tableName}}}", _toMap(entity));
-         Fluttertoast.showToast(
-      msg: "数据库插入成功",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-    );
        return true;
   }
   
@@ -76,12 +52,6 @@ import 'package:fluttertoast/fluttertoast.dart';
             maps.add(_toMap(entity));
        }
        await dbManager.db.rawInsert("{{{tableName}}}", maps);
-         Fluttertoast.showToast(
-      msg: "数据库插入成功",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-    );
        return true;
   }
   
