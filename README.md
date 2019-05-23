@@ -75,8 +75,12 @@ List list = await StudentEntityDao.queryBuild()
 
 
 
-
-
+安装
+===
+```Dart
+dev_dependencies:
+  yun_dao: 0.0.3
+```
 
 
 
