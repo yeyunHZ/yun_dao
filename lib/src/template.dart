@@ -2,10 +2,11 @@ const String clazzTpl = """
 ///{{{tableName}}}表
 import 'package:yun_dao/src/db_manager.dart';
 import 'package:yun_dao/src/entity.dart';
-import 'dart:convert';
 import 'package:{{{source}}}';
-import 'package:fluttertoast/fluttertoast.dart';
- class {{{className}}}{
+import 'package:yun_dao/src/Dao.dart';
+import 'package:yun_dao/src/query.dart';
+
+ class {{{className}}} extends Dao<{{{entityName}}}>{
   static List propertyMapList =  {{{propertyList}}};
  
   ///初始化数据库
@@ -29,9 +30,10 @@ import 'package:fluttertoast/fluttertoast.dart';
   static Future<List<{{{entityName}}}>> queryAll() async{
            DBManager dbManager = DBManager();
            List<{{{entityName}}}> entityList = List();
+            {{{className}}} entityDao = {{{className}}}();
            List<Map> maps = await dbManager.db.query("{{{tableName}}}")  ;
            for(Map map in maps){
-              entityList.add(_formMap(map));
+              entityList.add(entityDao.formMap(map));
            }
            return entityList;
   }
@@ -40,7 +42,8 @@ import 'package:fluttertoast/fluttertoast.dart';
   ///增加一条数据
   static Future<bool> insert({{{entityName}}} entity) async{
        DBManager dbManager = DBManager();
-       await dbManager.db.insert("{{{tableName}}}", _toMap(entity));
+        {{{className}}} entityDao = {{{className}}}();
+       await dbManager.db.insert("{{{tableName}}}", entityDao.toMap(entity));
        return true;
   }
   
@@ -48,8 +51,9 @@ import 'package:fluttertoast/fluttertoast.dart';
   static Future<bool> insertList(List<{{{entityName}}}> entityList) async{
        DBManager dbManager = DBManager();
        List<Map> maps = List();
+       {{{className}}} entityDao = {{{className}}}();
        for({{{entityName}}} entity in entityList){
-            maps.add(_toMap(entity));
+            maps.add(entityDao.toMap(entity));
        }
        await dbManager.db.rawInsert("{{{tableName}}}", maps);
        return true;
@@ -58,7 +62,8 @@ import 'package:fluttertoast/fluttertoast.dart';
   ///更新数据
   static Future<int> update({{{entityName}}} entity) async {
     DBManager dbManager = DBManager();
-    return await dbManager.db.update("{{{tableName}}}", _toMap(entity),
+     {{{className}}} entityDao = {{{className}}}();
+    return await dbManager.db.update("{{{tableName}}}", entityDao.toMap(entity),
         where: '{{{primary}}} = ?', whereArgs: [entity.{{{primary}}}]);
   }
   
@@ -71,18 +76,44 @@ import 'package:fluttertoast/fluttertoast.dart';
   
   
   ///map转为entity
-  static {{{entityName}}} _formMap(Map map){
+  @override
+  {{{entityName}}} formMap(Map map){
          {{{formMap}}}
   }
   
   ///entity转为map
-  static Map _toMap({{{entityName}}} entity){
+  @override
+  Map toMap({{{entityName}}} entity){
          {{{toMap}}}
-  
+ 
   }
   
+  @override
+  String getTableName(){
+      return "{{{tableName}}}";
+  }
   
+    {{{propertyClass}}}
+  
+  static Query queryBuild(){
+       Query query = Query({{{className}}}());
+       return query;
+  }
 }
+
+///查询条件生成
+class QueryProperty{
+      String name;
+      QueryProperty({this.name});
+      QueryCondition equal(dynamic queryValue){
+           QueryCondition queryCondition = QueryCondition();
+           queryCondition.key= name;
+           queryCondition.value = queryValue;
+           return queryCondition;
+      }
+  }
+  
+
 """;
 
 const String instanceCreatedTpl = """

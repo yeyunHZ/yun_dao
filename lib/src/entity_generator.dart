@@ -38,8 +38,14 @@ class EntityGenerator extends GeneratorForAnnotation<Entity> {
     String formMap = "$entityName entity = $entityName();";
     String toMap = " var map = Map<String, dynamic>();\n";
     String primary = null;
+    String propertyClass = "";
     for (Property property in propertyList) {
       String propertyName = property.name;
+      propertyClass = propertyClass +
+          "static QueryProperty " +
+          propertyName.toUpperCase() +
+          " = QueryProperty(name: '$propertyName');\n";
+
       toMap = toMap + "map['$propertyName'] = entity.$propertyName;\n";
       formMap = formMap + "entity.$propertyName = map['$propertyName'];\n";
       if (property.isPrimary) {
@@ -62,13 +68,18 @@ class EntityGenerator extends GeneratorForAnnotation<Entity> {
             property.type.value +
             (property.isPrimary ? "PRIMARY KEY" : "");
       } else {
-        createSql =
-            createSql + property.name + "  " + property.type.value + ",";
+        createSql = createSql +
+            property.name +
+            "  " +
+            property.type.value +
+            (property.isPrimary ? "PRIMARY KEY" : "") +
+            ",";
       }
     }
     if (primary == null) {
       throw '$entityName必须设置主键!';
     }
+
     return render(clazzTpl, <String, dynamic>{
       'className': className,
       'entityName': entityName,
@@ -78,7 +89,8 @@ class EntityGenerator extends GeneratorForAnnotation<Entity> {
       "toMap": toMap,
       "formMap": formMap,
       "createSql": createSql,
-      "primary": primary
+      "primary": primary,
+      "propertyClass": propertyClass
     });
   }
 
@@ -86,6 +98,7 @@ class EntityGenerator extends GeneratorForAnnotation<Entity> {
     return "'${key}'";
   }
 
+  ///获取要生成的文件的路径
   String _getSource(String fullName) {
     String source = fullName.replaceAll("|lib", "");
     return source;
