@@ -5,10 +5,10 @@
 
 使用
 ===
-1、创建你的实体类并以*.entity.dart作为文件名,编译后生成的数据库操作文件将以*.entity.table.dart命名 例:
+1、创建你的实体类并以*_entity.dart作为文件名,编译后生成的数据库操作文件将以*.entity.table.dart命名 例:
 ```Dart
-你的实体类文件:               student.entity.dart
-编译后生成的数据库操作类文件:   student.entity.table.dart
+你的实体类文件:               student_entity.dart
+编译后生成的数据库操作类文件:   student_entity.dao.dart
 ```
 
 
@@ -55,7 +55,7 @@ dBManager.init(1,"dbName");
 
 6、在项目中调用生成的数据库操作文件的 **init()** 方法来创建表, **init()** 方法中会做相应的判断不会重复创建表格
 ```Dart
-StudentEntityTable.init();
+StudentEntityDao.init();
 ```
 
 
@@ -65,10 +65,21 @@ StudentEntityTable.queryAll();
 StudentEntityTable.insert(StudentEntity());
 ```
 
+8、你也可以通过构造查询器来查询数据
+```Dart
+List list = await StudentEntityDao.queryBuild()
+        .where(StudentEntityDao.NAME.equal("李四"))
+        .where(StudentEntityDao.AGE.equal(2))
+        .list();
+```
 
 
 
+安装
+===
 
+      dev_dependencies:
+          yun_dao: 0.0.3
 
 
 
