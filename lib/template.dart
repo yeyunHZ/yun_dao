@@ -1,10 +1,10 @@
 const String clazzTpl = """
 ///{{{tableName}}}表
-import 'package:yun_dao/src/db_manager.dart';
-import 'package:yun_dao/src/entity.dart';
+import 'package:yun_dao/db_manager.dart';
+import 'package:yun_dao/entity.dart';
 import 'package:{{{source}}}';
-import 'package:yun_dao/src/Dao.dart';
-import 'package:yun_dao/src/query.dart';
+import 'package:yun_dao/Dao.dart';
+import 'package:yun_dao/query.dart';
 
  class {{{className}}} extends Dao<{{{entityName}}}>{
   static List propertyMapList =  {{{propertyList}}};
