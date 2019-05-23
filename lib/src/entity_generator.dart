@@ -1,11 +1,13 @@
-import 'package:yun_dao/src/entity.dart';
+import 'dart:convert';
+
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/src/builder/build_step.dart';
-import 'package:source_gen/source_gen.dart';
 import 'package:mustache4dart/mustache4dart.dart';
+import 'package:source_gen/source_gen.dart';
+import 'package:yun_dao/src/entity.dart';
+
 import 'template.dart';
-import 'package:analyzer/dart/constant/value.dart';
-import 'dart:convert';
 
 /**
  * 数据库管理类
@@ -15,7 +17,7 @@ class EntityGenerator extends GeneratorForAnnotation<Entity> {
   generateForAnnotatedElement(
       Element element, ConstantReader annotation, BuildStep buildStep) {
     // TODO: implement generateForAnnotatedElement
-    String className = element.name + "Table";
+    String className = element.name + "Dao";
     ConstantReader propertyListConstantReader = annotation.peek('propertyList');
     List<DartObject> dartList = propertyListConstantReader.listValue;
     List<Property> propertyList = List();

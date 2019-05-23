@@ -1,8 +1,8 @@
 name: yun_dao
-description: A new Flutter package.
+description: flutter ORM Lib.
 version: 0.0.1
-author:
-homepage:
+author: 'yunye<550752356@qq.com>'
+homepage: "https://github.com/yeyunHZ/yun_dao.git"
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -17,8 +17,6 @@ dependencies:
   build: '>=0.12.0 <2.0.0'
   path_provider: ^0.5.0
 
-author: 'yunye'
-homepage: ""
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +29,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
 
   # To add assets to your package, add an assets section, like this:
   # assets:
