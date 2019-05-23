@@ -80,8 +80,10 @@ List list = await StudentEntityDao.queryBuild()
 
       dev_dependencies:
           yun_dao: 0.0.3
+          
 
-
+[示例代码](https://github.com/yeyunHZ/yun_dao_test)
+===
 
 
 
