@@ -42,14 +42,13 @@ class StudentEntity{
 flutter packages pub run build_runner build
 ```
 
-5.The gennereated databse operation includes the CURD methods after compilation.And it's should init database when use in project
+5.The gennereated databse operation file includes the CURD methods after compilation.And you should init database when use in project
 
 ```Dart
 ///import database manager class
 import 'package:yun_dao/db_manager.dart';
 
-///pass the params include vesion,path,name to init databse.DBManager is a singleton
-
+///pass the params include vesion,path,name to init databse. DBManager is a singleton
 DBManager dBManager = DBManager();
 dBManager.initByPath(1,“dbPath”,"dbName");
 
@@ -57,7 +56,7 @@ dBManager.initByPath(1,“dbPath”,"dbName");
 dBManager.init(1,"dbName");
 ```
 
-6.Call the method `init()` of genearated database operation file to create a table in project.However,the method would judge whether create a new table.Then you can don't be afaid of creating repeated tables.
+6.Call the method `init()` of genearated database operation file to create a table in project.However,the method would judge whether create a new table.Then you can don't be afraid of creating repeated tables.
 
 ```Dart
 StudentEntityDao.init();
