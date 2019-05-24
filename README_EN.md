@@ -52,7 +52,7 @@ import 'package:yun_dao/db_manager.dart';
 DBManager dBManager = DBManager();
 dBManager.initByPath(1,“dbPath”,"dbName");
 
-///you can also use default path to init database.The default path is `getDatabasesPath()`
+///you can also use default path to init database.The method to get default path is `getDatabasesPath()`
 dBManager.init(1,"dbName");
 ```
 
