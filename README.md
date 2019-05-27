@@ -9,7 +9,7 @@ It is an ORM database solution by annotation method which is based on source_gen
 
 Usage
 ===
-1.Create entity file which names `*_entity.dart`,then will generate database operation file which names `*.entity.table.dart` after compilation.
+1.Create entity file which names `*_entity.dart`,then will generate database operation file which names `*.entity.dao.dart` after compilation.
 
 ```Dart
 entity file:     student_entity.dart
