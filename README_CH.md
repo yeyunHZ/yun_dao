@@ -5,7 +5,7 @@
 
 使用
 ===
-1、创建你的实体类并以*_entity.dart作为文件名,编译后生成的数据库操作文件将以*.entity.table.dart命名 例:
+1、创建你的实体类并以*_entity.dart作为文件名,编译后生成的数据库操作文件将以*.entity.dao.dart命名 例:
 ```Dart
 你的实体类文件:               student_entity.dart
 编译后生成的数据库操作类文件:   student_entity.dao.dart
