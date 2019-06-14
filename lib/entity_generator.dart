@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:build/build.dart';
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/src/builder/build_step.dart';
@@ -11,6 +11,10 @@ import 'package:yun_dao/template.dart';
 
 ///代码生成
 class EntityGenerator extends GeneratorForAnnotation<Entity> {
+  BuilderOptions options;
+
+  EntityGenerator(this.options) : super();
+
   @override
   generateForAnnotatedElement(
       Element element, ConstantReader annotation, BuildStep buildStep) {
@@ -27,7 +31,10 @@ class EntityGenerator extends GeneratorForAnnotation<Entity> {
           ConstantReader(propertyConstantReader.peek("type").objectValue);
       PropertyType type =
           PropertyType(value: typeConstantReader.peek("value").stringValue);
-      bool isPrimary = propertyConstantReader.peek("isPrimary").boolValue;
+      bool isPrimary = false;
+      if (propertyConstantReader.peek("isPrimary") != null) {
+        isPrimary = propertyConstantReader.peek("isPrimary").boolValue;
+      }
       Property property =
           Property(name: name, type: type, isPrimary: isPrimary);
       propertyList.add(property);
@@ -66,13 +73,13 @@ class EntityGenerator extends GeneratorForAnnotation<Entity> {
             property.name +
             "  " +
             property.type.value +
-            (property.isPrimary ? "PRIMARY KEY" : "");
+            (property.isPrimary ? " PRIMARY KEY" : "");
       } else {
         createSql = createSql +
             property.name +
             "  " +
             property.type.value +
-            (property.isPrimary ? "PRIMARY KEY" : "") +
+            (property.isPrimary ? " PRIMARY KEY" : "") +
             ",";
       }
     }
@@ -85,7 +92,7 @@ class EntityGenerator extends GeneratorForAnnotation<Entity> {
       'entityName': entityName,
       'tableName': annotation.peek("nameInDb")?.stringValue,
       "propertyList": "$jsonStr",
-      "source": _getSource(element.source.fullName),
+      "source": _getSource(element.source.fullName.substring(1)),
       "toMap": toMap,
       "formMap": formMap,
       "createSql": createSql,
@@ -100,7 +107,7 @@ class EntityGenerator extends GeneratorForAnnotation<Entity> {
 
   ///获取要生成的文件的路径
   String _getSource(String fullName) {
-    String source = fullName.replaceAll("|lib", "");
+    String source = fullName.replaceAll("/lib", "");
     return source;
   }
 }
