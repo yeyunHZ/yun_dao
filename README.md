@@ -88,7 +88,7 @@ Install
 ===
 
       dev_dependencies:
-          yun_dao: 0.0.3
+          yun_dao: 0.0.4
           
 
 [Example](https://github.com/yeyunHZ/yun_dao_test)
